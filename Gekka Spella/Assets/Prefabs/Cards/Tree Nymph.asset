@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Tree Nymph
   m_EditorClassIdentifier: 
   Id: 7
-  MName: Harpies
+  MName: Tree Nymph
   Health: 2
   Power: 5
-  Image: {fileID: 21300000, guid: 5ca27ae40398c29429118ef9545db481, type: 3}
+  Image: {fileID: 21300000, guid: d4ad6867158fbb74daaef66dde760995, type: 3}
   ManaCost: 3

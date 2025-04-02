@@ -57,27 +57,28 @@ public class EnemyAI : MonoBehaviour
             }
         }
     }
-    private void MoveCardToRange(bool isgood)
+    private void MoveCardToRange()
     {
-        int number = Randomizer(1, 6);
+        int random = Randomizer(1, 6);
+        //bool below3;
         
-        if (number < 3)
+        /*if (random < 3)
         {
-            isgood = true;
-        } else if (number > 3)
+            below3 = true;
+        } else if (random > 3)
         {
-            isgood = false;
-        }
-        if (number < 3 && enemyrange1.transform.childCount == 0)
+            below3 = false;
+        }*/
+        if (random < 3 && enemyrange1.transform.childCount == 0)
         {
             movedrangecard.transform.SetParent(enemyrange1.transform);
             movedrangecard.transform.localPosition = new Vector3(0,0,0);
             movedrangecard.GetComponent<Cardback>().TurnCard(false);
             movedrangecard.transform.tag = "EnemyRangeCard1";
             EnemyCardsinRanged.Add(movedrangecard);
-            Debug.Log("ranfe1");
+            Debug.Log("range1");
         }
-        else if ((number > 3 || isgood == true) && enemyrange2.transform.childCount == 0)
+        else if ((random > 3  /*below3 == true*/) && enemyrange2.transform.childCount == 0)
         {
             movedrangecard.transform.SetParent(enemyrange2.transform);
             movedrangecard.transform.localPosition = new Vector3(0, 0, 0);
@@ -94,7 +95,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void ChooseMeleeCard() // Chposes a Range card to move to Melee
+    private void ChooseMeleeCard() // Chooses a Range card to move to Melee
     {
         int number = Randomizer(1, 2);
         int number2 = Randomizer(1, 2);
@@ -123,7 +124,7 @@ public class EnemyAI : MonoBehaviour
             if (number2 == 1 && EnemyCardsinHand != null)
             {
                 ChooseRangeCard();
-                MoveCardToRange(true);
+                MoveCardToRange();
             }
             else if (number2 == 2 && EnemyCardsinHand.Count < 7)
             {
@@ -131,17 +132,18 @@ public class EnemyAI : MonoBehaviour
             }
         }
     }
-    private void MoveCardToMelee(bool isgood) // Moves the chosen card to Melee
+    private void MoveCardToMelee() // Moves the chosen card to Melee
     {
         int number = Randomizer(1, 6);
-        if (number < 4)
+        //bool under4;
+       /* if (number < 4)
         {
-            isgood = false;
+            under4 = false;
         }
         else if (number > 4)
         {
-            isgood = true;
-        }
+            under4 = true;
+        }*/
         if (number < 2 && enemymelee1.transform.childCount == 0)
         {
             movedmeleecard.transform.SetParent(enemymelee1.transform);
@@ -151,7 +153,7 @@ public class EnemyAI : MonoBehaviour
             EnemyCardsinMelee.Add(movedmeleecard);
             Debug.Log("meelee1");
         }
-        else if ((number > 2 && isgood == true) && number < 4 && enemymelee2.transform.childCount == 0)
+        else if ((number > 2  /*under4 == true*/) && number < 4 && enemymelee2.transform.childCount == 0)
         {
             movedmeleecard.transform.SetParent(enemymelee2.transform);
             movedmeleecard.transform.localPosition = new Vector3(0, 0, 0);
@@ -182,7 +184,7 @@ public class EnemyAI : MonoBehaviour
         return number;
     }
 
-    IEnumerator YIPPPEEE()
+    IEnumerator AIBehaviour()
     {
         for (int i = 0; i < numberofactions; i++)
         {
@@ -193,7 +195,7 @@ public class EnemyAI : MonoBehaviour
                 ChooseRangeCard();
                 if (movedrangecard != null)
                 {
-                    MoveCardToRange(true);
+                    MoveCardToRange();
                 }
                 else
                 {
@@ -204,7 +206,7 @@ public class EnemyAI : MonoBehaviour
                 ChooseMeleeCard();
                 if (movedmeleecard != null)
                 {
-                    MoveCardToMelee(true);
+                    MoveCardToMelee();
                 }
                 else
                 {
@@ -219,11 +221,11 @@ public class EnemyAI : MonoBehaviour
     {
         if (turn.isYourTurn == false)
         {
-            StartCoroutine(YIPPPEEE());
+            StartCoroutine(AIBehaviour());
         }
         else if (turn.isYourTurn == true)
         {
-            StopCoroutine(YIPPPEEE());
+            StopCoroutine(AIBehaviour());
         }
     }
 }
